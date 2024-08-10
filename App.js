@@ -1,73 +1,116 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
 
-// const heading = React.createElement("h1", {}, "heading 1");
-
-// const div = React.createElement(
-//   "div",
-//   {
-//     className: "title",
-//   },
-//   [
-//     heading,
-//     React.createElement("h2", {}, "heading 2"),
-//     React.createElement("h3", {}, "heading 3"),
-//   ]
-// );
-// console.log(div);
-
-// using jsx
-
-// const div = () => (
-//   <div className="title">
-//     <h1>headr 1 </h1>
-//     <h2>header 2</h2>
-//     <h3>header 3</h3>
-//   </div>
-// );
-
-// const RenderJS = () => {
-//   return div();
-// };
-
-const header = <h1>new heeader</h1>;
-
-const div = (
-  <div className="title">
-    {header}
-    <h1>headr 1 </h1>
-    <h2>header 2</h2>
-    <h3>header 3</h3>
-  </div>
-);
-
-const div2 = (
-  <div className="title">
-    {header}
-    <h1>headr 1 </h1>
-    <h2>header 2</h2>
-    <h3>header 3</h3>
-  </div>
-);
-
-const RenderJS = () => {
-  return <div>{div}</div>; // returning jsx elemet
+const Title = () => {
+  return (
+    <a href="/">
+      <img
+        className="logo"
+        alt="logo"
+        src="https://yt3.googleusercontent.com/ytc/AIdro_khDPXdl1ezbGnSrhNWw09nCQDdpcWXF8QnV-1xCcbYng=s900-c-k-c0x00ffffff-no-rj"
+      />
+    </a>
+  );
 };
 
-// const div = (
-//   <div className="title">
-//     <h1>headr 1 </h1>
-//     <h2>header 2</h2>
-//     <h3>header 3</h3>
-//   </div>
-// );
+const HeaderComponent = () => {
+  return (
+    <div className="header">
+      <Title />
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>About Us</li>
+          <li>Contact</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-// const RenderJS = () => {
-//   return div; // if we use {div} we are returning object not jsx element, so check properly what we are returning
-// };
+const restraunts = [
+  {
+    img: "https://tb-static.uber.com/prod/image-proc/processed_images/4c7252776091efae1198aef7d3922e89/c9252e6c6cd289c588c3381bc77b1dfc.jpeg",
+    name: "ChickFill A",
+    cuisine: ["American", "Chicken"],
+    rating: 4.5,
+  },
+  {
+    img: "https://tb-static.uber.com/prod/image-proc/processed_images/4c7252776091efae1198aef7d3922e89/c9252e6c6cd289c588c3381bc77b1dfc.jpeg",
+    name: "ChickFill A",
+    cuisine: ["American", "Chicken"],
+    rating: 4.5,
+  },
+  {
+    img: "https://tb-static.uber.com/prod/image-proc/processed_images/4c7252776091efae1198aef7d3922e89/c9252e6c6cd289c588c3381bc77b1dfc.jpeg",
+    name: "ChickFill A",
+    cuisine: ["American", "Chicken"],
+    rating: 4.5,
+  },
+  {
+    img: "https://tb-static.uber.com/prod/image-proc/processed_images/4c7252776091efae1198aef7d3922e89/c9252e6c6cd289c588c3381bc77b1dfc.jpeg",
+    name: "ChickFill A",
+    cuisine: ["American", "Chicken"],
+    rating: 4.5,
+  },
+];
+
+const RestaurantCard = ({ restro }) => {
+  console.log(restro);
+  return (
+    <div className="card">
+      <img src={restro.img} alt="logo" />
+      <h2>{restro.name}</h2>
+      <h3>{restro.cuisine.join(",")}</h3>
+      <h4>{restro.rating} stars</h4>
+    </div>
+  );
+};
+
+//best practive to have key is some uniqye id --> dont use indx as jey
+// for now i kept it temporarily
+const Body = () => {
+  return (
+    <div className="restaurant-list">
+      {restraunts.map((res, index) => {
+        return <RestaurantCard restro={res} key={index} />;
+      })}
+    </div>
+  );
+};
+
+const Footer = () => {
+  return <h4>Footer</h4>;
+};
+const AppLayout = () => {
+  return (
+    <>
+      {/** header
+       *      logo
+       *       list items --> about us contact login...
+       *        cart
+       * body
+       *    search bar
+       *    restaurant list
+       *      -Restaurant
+       *        name
+       *        cusine rating
+       *        image
+       * footer
+       *      reference links
+       *      copyright
+       */}
+      <HeaderComponent />
+      <Body />
+      <Footer />
+    </>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // root.render(div);
 
-root.render(<RenderJS />);
+root.render(<AppLayout />);
