@@ -1,13 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { restrauntsList } from "./constant";
 import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
-  let filteredRes = [];
+  const [allRestraunts, setallRestraunts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [restaurants, setRestaurants] = useState(restrauntsList);
+  const [restaurants, setRestaurants] = useState([]);
 
-  return (
+  useEffect(() => {
+    getRestraunts();
+  }, []);
+
+  async function getRestraunts() {
+    const data = await fetch(
+      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+    );
+    const jsonData = await data.json();
+    console.log(jsonData);
+    setallRestraunts(
+      jsonData.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setRestaurants(
+      jsonData.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+  }
+
+  if (!allRestraunts) return null;
+
+  return allRestraunts.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-container">
         <input
@@ -46,8 +71,10 @@ const Body = () => {
             //   )
             // );
             setRestaurants(
-              restrauntsList.filter((res) =>
-                res.name.toLowerCase().includes(searchInput)
+              allRestraunts.filter((res) =>
+                res?.info?.name
+                  ?.toLowerCase()
+                  .includes(searchInput?.toLowerCase())
               )
             );
           }}
@@ -55,11 +82,15 @@ const Body = () => {
           Search
         </button>
       </div>
-      <div className="restaurant-list">
-        {restaurants.map((res, index) => {
-          return <RestaurantCard restro={res} key={index} />;
-        })}
-      </div>
+      {restaurants.length === 0 ? (
+        <h1>No restaurant found!!</h1>
+      ) : (
+        <div className="restaurant-list">
+          {restaurants.map((res, index) => {
+            return <RestaurantCard {...res.info} key={res.info?.id} />;
+          })}
+        </div>
+      )}
     </>
   );
 };

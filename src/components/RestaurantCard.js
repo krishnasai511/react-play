@@ -1,10 +1,12 @@
-const RestaurantCard = ({ restro }) => {
+import { CDN_URL } from "./constant";
+
+const RestaurantCard = ({ name, cuisines, avgRating, cloudinaryImageId }) => {
   return (
     <div className="card">
-      <img src={restro.img} alt="logo" />
-      <h2>{restro.name}</h2>
-      <h3>{restro.cuisine.join(",")}</h3>
-      <h4>{restro.rating} stars</h4>
+      <img className="card-logo" src={CDN_URL + cloudinaryImageId} alt="logo" />
+      <h2>{name}</h2>
+      <h3>{cuisines.join(",")}</h3>
+      <h4>{avgRating} stars</h4>
     </div>
   );
 };

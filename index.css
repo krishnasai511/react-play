@@ -22,8 +22,8 @@
 .card {
   width: 200px;
   border: 1px solid black;
-  padding: 2px;
-  margin: 2px;
+  padding: 5px;
+  margin: 5px;
 }
 
 .card > img {
@@ -34,4 +34,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.card-logo {
+  width: 100%;
 }
