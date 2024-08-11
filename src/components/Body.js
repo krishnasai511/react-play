@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { restrauntsList } from "./constant";
+import { CORS_PROXY_URL, restrauntsList } from "../utils/constant";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-
+import { Link } from "react-router-dom";
 const Body = () => {
   const [allRestraunts, setallRestraunts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -14,7 +14,8 @@ const Body = () => {
 
   async function getRestraunts() {
     const data = await fetch(
-      "https://corsproxy.io/?https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+      CORS_PROXY_URL +
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
     );
     const jsonData = await data.json();
     console.log(jsonData);
@@ -87,7 +88,11 @@ const Body = () => {
       ) : (
         <div className="restaurant-list">
           {restaurants.map((res, index) => {
-            return <RestaurantCard {...res.info} key={res.info?.id} />;
+            return (
+              <Link to={"/restuarant/" + res.info?.id} key={res.info?.id}>
+                <RestaurantCard {...res.info} />
+              </Link>
+            );
           })}
         </div>
       )}

@@ -24,6 +24,7 @@
   border: 1px solid black;
   padding: 5px;
   margin: 5px;
+  word-wrap: break-word;
 }
 
 .card > img {
@@ -33,9 +34,20 @@
 .restaurant-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
 }
 
 .card-logo {
   width: 100%;
+}
+
+.shimmer-card {
+  width: 200px;
+  height: 200px;
+  background-color: lightgrey;
+  margin: 5px;
+}
+
+.restro-info {
+  display: flex;
+  gap: 30px;
 }
