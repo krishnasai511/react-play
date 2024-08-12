@@ -41,7 +41,7 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="search-container">
+      <div className="py-5 bg-purple-100 m-2">
         <input
           type="text"
           placeholder="Search item"
@@ -69,6 +69,7 @@ const Body = () => {
           }}
         />
         <button
+          className="m-2 p-2 bg-orange-400 text-white rounded-md"
           onClick={() => {
             // filer from the restuarants and update the state
             // console.log(
@@ -92,7 +93,7 @@ const Body = () => {
       {restaurants.length === 0 ? (
         <h1>No restaurant found!!</h1>
       ) : (
-        <div className="restaurant-list">
+        <div className="flex flex-wrap">
           {restaurants.map((res, index) => {
             return (
               <Link to={"/restuarant/" + res.info?.id} key={res.info?.id}>

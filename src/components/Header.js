@@ -9,7 +9,7 @@ const loggedinUser = () => {
 const Title = () => {
   return (
     <a href="/">
-      <img className="logo" alt="logo" src={IMG_LOGO} />
+      <img className="h-28 p-2" alt="logo" src={IMG_LOGO} />
     </a>
   );
 };
@@ -20,21 +20,21 @@ const Header = () => {
   console.log("render", isLoggedIn);
 
   return (
-    <div className="header">
+    <div className="flex flex-col bg-pink-100 shadow-lg items-center justify-between md:flex-row">
       <Title />
       <div className="nav-items">
-        <ul>
-          <li>
+        <ul className="flex py-10">
+          <li className="px-2">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="px-2">
             <Link to="/about">About Us</Link>
           </li>
-          <li>
+          <li className="px-2">
             <Link to="/contact">Contact</Link>
           </li>
-          <li>Cart</li>
-          <li>
+          <li className="px-2">Cart</li>
+          <li className="px-2">
             <Link to="/instamart">InstaMart</Link>
           </li>
         </ul>
