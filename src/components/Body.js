@@ -3,6 +3,7 @@ import { CORS_PROXY_URL, restrauntsList } from "../utils/constant";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnline from "../utils/useOnline";
 const Body = () => {
   const [allRestraunts, setallRestraunts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -27,6 +28,11 @@ const Body = () => {
       jsonData.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
+  }
+  const online = useOnline();
+
+  if (!online) {
+    return <h1>😯 Offline please check internet!</h1>;
   }
 
   if (!allRestraunts) return null;
