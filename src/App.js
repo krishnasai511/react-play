@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useContext, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../index.css";
 import Header from "./components/Header";
@@ -12,13 +12,30 @@ import RestroMenu from "./components/RestroMenu";
 import Profile from "./components/Profile";
 import Shimmer from "./components/Shimmer";
 // import InstaMart from "./components/InstaMart";
+import userContext from "./utils/userContext";
+import themeContext from "./utils/themeContext";
+import { themes } from "./utils/themeContext";
 
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "krishna",
+    email: "dnksndkfs@kfsgnsk.com",
+  });
+
+  const [themeColor, setThemeColor] = useState({ color: "black" });
+  // const [user, setUser] = useState("somethinf");
+
+  // here if we write useEffect and update state  then all components will re-render with new user
+
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <themeContext.Provider value={{ themeColor, setThemeColor }}>
+        <userContext.Provider value={{ user: user, setUser: setUser }}>
+          <Header />
+          <Outlet />
+          <Footer />
+        </userContext.Provider>
+      </themeContext.Provider>
     </>
   );
 };

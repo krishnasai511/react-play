@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CORS_PROXY_URL, restrauntsList } from "../utils/constant";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
+import userContext from "../utils/userContext";
+import themeContext from "../utils/themeContext";
 const Body = () => {
   const [allRestraunts, setallRestraunts] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [restaurants, setRestaurants] = useState([]);
+
+  const { user, setUser } = useContext(userContext);
+
+  const { themeColor } = useContext(themeContext);
 
   useEffect(() => {
     getRestraunts();
@@ -37,11 +43,13 @@ const Body = () => {
 
   if (!allRestraunts) return null;
 
+  console.log("set theme color body--->", themeColor);
+
   return allRestraunts.length === 0 ? (
     <Shimmer />
   ) : (
-    <>
-      <div className="py-5 bg-purple-100 m-2">
+    <div>
+      <div className={`py-5 m-2 bg-${themeColor.color}`}>
         <input
           type="text"
           placeholder="Search item"
@@ -89,6 +97,14 @@ const Body = () => {
         >
           Search
         </button>
+        <input
+          type="text"
+          value={user.name}
+          onChange={(e) => {
+            console.log(e.target.value);
+            setUser({ ...user, name: e.target.value });
+          }}
+        />
       </div>
       {restaurants.length === 0 ? (
         <h1>No restaurant found!!</h1>
@@ -103,7 +119,7 @@ const Body = () => {
           })}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

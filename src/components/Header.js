@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IMG_LOGO } from "../utils/constant";
 import { Link } from "react-router-dom";
+import userContext from "../utils/userContext";
+import themeContext from "../utils/themeContext";
 
 const loggedinUser = () => {
   return true;
@@ -16,6 +18,11 @@ const Title = () => {
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { themeColor, setThemeColor } = useContext(themeContext);
+
+  const user = useContext(userContext);
+  console.log("user from header-->", user);
 
   console.log("render", isLoggedIn);
 
@@ -44,6 +51,17 @@ const Header = () => {
       ) : (
         <button onClick={() => setIsLoggedIn(true)}>Login</button>
       )}
+      <button
+        className="bg-blue-100 rounded p-2 m-5"
+        onClick={() => {
+          console.log(themeColor.color);
+          setThemeColor({
+            color: themeColor.color === "black" ? "white" : "black",
+          });
+        }}
+      >
+        ChangeTheme
+      </button>
     </div>
   );
 };
