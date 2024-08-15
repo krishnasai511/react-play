@@ -3,6 +3,8 @@ import { IMG_LOGO } from "../utils/constant";
 import { Link } from "react-router-dom";
 import userContext from "../utils/userContext";
 import themeContext from "../utils/themeContext";
+import { useSelector } from "react-redux";
+import cartSlice from "../utils/cartSlice";
 
 const loggedinUser = () => {
   return true;
@@ -26,6 +28,10 @@ const Header = () => {
 
   console.log("render", isLoggedIn);
 
+  const cartItems = useSelector((store) => store.cart.items);
+
+  console.log("Cart--->", cartItems);
+
   return (
     <div className="flex flex-col bg-pink-100 shadow-lg items-center justify-between md:flex-row">
       <Title />
@@ -40,10 +46,10 @@ const Header = () => {
           <li className="px-2">
             <Link to="/contact">Contact</Link>
           </li>
-          <li className="px-2">Cart</li>
           <li className="px-2">
             <Link to="/instamart">InstaMart</Link>
           </li>
+          <li className="px-2">Cart - {cartItems?.length} items</li>
         </ul>
       </div>
       {isLoggedIn ? (

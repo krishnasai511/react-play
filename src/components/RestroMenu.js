@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { json, useParams } from "react-router-dom";
 import { CDN_URL, CORS_PROXY_URL, MENU_API } from "../utils/constant";
 import Shimmer from "./Shimmer";
+import { useDispatch } from "react-redux";
+import { addItem, removeItem } from "../utils/cartSlice";
 
 const RestroMenu = () => {
   const params = useParams();
@@ -10,6 +12,16 @@ const RestroMenu = () => {
 
   const [restroInfo, setRestroInfo] = useState(null);
   const [menuDetails, setMenuDetails] = useState([]);
+
+  const dispatch = useDispatch();
+
+  function handleCartAddItem(item) {
+    dispatch(addItem(item));
+  }
+
+  function handleCartRemoveItem(item) {
+    dispatch(removeItem());
+  }
 
   useEffect(() => {
     getRestaurantInfo();
@@ -81,6 +93,19 @@ const RestroMenu = () => {
                     <>
                       <p>{item.name}</p>
                       {item.defaultPrice && <p>Price: {item.defaultPrice}</p>}
+                      <button
+                        className="bg-green-200 text-black font-bold text-3xl m-2"
+                        onClick={() => handleCartAddItem(item)}
+                      >
+                        +
+                      </button>
+
+                      <button
+                        className="bg-green-200 text-black font-bold text-3xl m-2"
+                        onClick={() => handleCartRemoveItem()}
+                      >
+                        -
+                      </button>
                     </>
                   );
                 })}
