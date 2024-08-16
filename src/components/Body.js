@@ -49,6 +49,20 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div>
+      {/* <h1>{themeColor.color}</h1>  */}
+      {/* <div className={`py-5 m-2 bg-${themeColor?.color}`}>
+       * Even though the color updates tailwind cannot take colors dynamically
+       * because when tailwind compiles to css it looks over the code and see if it can find any class
+       * with that name
+       *
+       * We can use something called tailwind safelists in tailwing config file, if we want to add any specific classes
+       *
+       * Tailwind doc
+       * Safelisting is a last-resort, and should only be used in situations where it’s impossible to scan certain content for class names.
+       * These situations are rare, and you should almost never need this feature.
+       *If you need to make sure Tailwind generates certain class names that don’t exist in your content files,
+       * use the safelist option:
+       */}
       <div className={`py-5 m-2 bg-${themeColor?.color}`}>
         <input
           type="text"

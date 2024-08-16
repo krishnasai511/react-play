@@ -96,7 +96,7 @@ const RestroMenu = () => {
                         <p>Price: {item.defaultPrice / 100}</p>
                       )}
                       <button
-                        data-testId="btn-add"
+                        data-testid="btn-add"
                         className="bg-green-200 text-black font-bold text-3xl m-2"
                         onClick={() => handleCartAddItem(item)}
                       >
