@@ -13,7 +13,7 @@ const loggedinUser = () => {
 const Title = () => {
   return (
     <a href="/">
-      <img className="h-28 p-2" alt="logo" src={IMG_LOGO} />
+      <img data-testid="logo" className="h-28 p-2" alt="logo" src={IMG_LOGO} />
     </a>
   );
 };
@@ -49,7 +49,9 @@ const Header = () => {
           <li className="px-2">
             <Link to="/instamart">InstaMart</Link>
           </li>
-          <li className="px-2">Cart - {cartItems?.length} items</li>
+          <li className="px-2" data-testid="cart">
+            Cart - {cartItems?.length} items
+          </li>
         </ul>
       </div>
       {isLoggedIn ? (

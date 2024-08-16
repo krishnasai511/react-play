@@ -31,7 +31,7 @@ const RestroMenu = () => {
     console.log("inside");
     const data = await fetch(CORS_PROXY_URL + MENU_API + params.id);
     const jsonData = await data.json();
-
+    console.log("menu json data->", jsonData);
     setRestroInfo(jsonData?.data?.cards[2]?.card?.card?.info);
     parseMenuDetails(
       jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
@@ -82,7 +82,7 @@ const RestroMenu = () => {
         <p>Rating: {restroInfo.avgRating} stars</p>
       </div>
       {menuDetails.length > 1 && (
-        <div>
+        <div data-testid="menu-list">
           <h1>---------MENU---------</h1>
           {menuDetails.map((menuC, index) => {
             return (
@@ -92,8 +92,11 @@ const RestroMenu = () => {
                   return (
                     <>
                       <p>{item.name}</p>
-                      {item.defaultPrice && <p>Price: {item.defaultPrice}</p>}
+                      {item.defaultPrice && (
+                        <p>Price: {item.defaultPrice / 100}</p>
+                      )}
                       <button
+                        data-testId="btn-add"
                         className="bg-green-200 text-black font-bold text-3xl m-2"
                         onClick={() => handleCartAddItem(item)}
                       >
